@@ -1,0 +1,9 @@
+101 ICON DISCARDABLE "tray.ico"
+
+"mspaint" BITMAP DISCARDABLE "rctest.bmp"
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+	3001 "This string was loaded from the resource!"
+END
+
