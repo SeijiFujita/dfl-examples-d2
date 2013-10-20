@@ -40,6 +40,7 @@ class ListViewDirSort: dfl.form.Form
 		ch.width = 60;
 		dirlist.columns.add(ch);
 		
+/++
 		listdir(".",
 			(DirEntry* de)
 			{
@@ -49,6 +50,14 @@ class ListViewDirSort: dfl.form.Form
 				dirlist.addRow(s, std.conv.to!string(de.size));
 				return true; // Continue.
 			});
+++/
+			foreach (DirEntry e; dirEntries(".", SpanMode.breadth)) {
+				string s = e.name;
+				if (s.length >= 2 && s[0 .. 2] == ".\\")
+					s = s[2 .. s.length];
+				
+				dirlist.addRow(s, std.conv.to!string(e.size));
+			}
 	}
 	
 	
