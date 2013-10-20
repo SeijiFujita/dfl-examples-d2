@@ -467,7 +467,8 @@ class DNoteForm: Form
 	
 	void resetTitle()
 	{
-		text = getBaseName(fileName) ~ " - " ~ TITLE;
+//		text = getBaseName(fileName) ~ " - " ~ TITLE;
+		text = baseName(fileName) ~ " - " ~ TITLE;
 	}
 	
 	
@@ -538,6 +539,10 @@ class DNoteForm: Form
 						text = std.utf.toUTF8(dbuf[0 .. i]);
 					}
 					break;
+// add default
+				default:
+					assert(0);
+					break;
 			}
 			
 			pad.text = text;
@@ -582,23 +587,31 @@ class DNoteForm: Form
 			
 			case BOM.UTF16LE:
 				sz = wchar.sizeof;
-				endian = Endian.LittleEndian;
+//				endian = Endian.LittleEndian;
+				endian = Endian.littleEndian;
 				break;
 			
 			case BOM.UTF16BE:
 				sz = wchar.sizeof;
-				endian = Endian.BigEndian;
+//				endian = Endian.BigEndian;
+				endian = Endian.bigEndian;
 				break;
 			
 			case BOM.UTF32LE:
 				sz = dchar.sizeof;
-				endian = Endian.LittleEndian;
+//				endian = Endian.LittleEndian;
+				endian = Endian.littleEndian;
 				break;
 			
 			case BOM.UTF32BE:
 				sz = dchar.sizeof;
-				endian = Endian.BigEndian;
+//				endian = Endian.BigEndian;
+				endian = Endian.bigEndian;
 				break;
+// add default
+				default:
+					assert(0);
+					break;
 		}
 		
 		BufferedFile _f;
@@ -642,7 +655,11 @@ class DNoteForm: Form
 						f.writeExact(&ch, dchar.sizeof);
 					}
 					break;
-			}
+			// add default
+				default:
+					assert(0);
+					break;
+}
 		}
 		finally
 		{
@@ -674,7 +691,11 @@ class DNoteForm: Form
 				
 				case DialogResult.CANCEL:
 					return false;
-			}
+			// add default
+				default:
+					assert(0);
+					break;
+}
 		}
 		
 		return true;

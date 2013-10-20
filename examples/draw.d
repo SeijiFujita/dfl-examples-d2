@@ -41,7 +41,13 @@ class DrawForm: Form
 		ea.graphics.drawLine(p1, 10, 110, 14, 114);
 		
 		// Multiple green lines chained together.
-		static Point[] pts1 = [{x: 2, y: 150}, {x: 20, y: 157}, {x: 3, y: 168}, {x: 7, y: 200}, {x: 2, y: 213}];
+//		static Point[] pts1 = [{x: 2, y: 150}, {x: 20, y: 157}, {x: 3, y: 168}, {x: 7, y: 200}, {x: 2, y: 213}];
+		static Point[5] pts1;
+		pts1[0] = Point( 2, 150);
+		pts1[1] = Point(20, 157);
+		pts1[2] = Point( 3, 168);
+		pts1[3] = Point( 7, 200);
+		pts1[4] = Point( 2, 213);
 		ea.graphics.drawLines(p1, pts1);
 		
 		// Yellow arc.
@@ -53,8 +59,17 @@ class DrawForm: Form
 		ea.graphics.drawBezier(p3, Point(20, 60), Point(25, 40), Point(45, 50), Point(55, 70));
 		
 		// Multiple blue beziers chained together using dashes.
-		static Point[] pts2 = [{x: 17, y: 100}, {x: 80, y: 150}, {x: 160, y: 30}, {x: 90, y: 220},
-			{x: 30, y: 20}, {x: 80, y: 70}, {x: 50, y: 50}];
+//		static Point[] pts2 = [{x: 17, y: 100}, {x: 80, y: 150}, {x: 160, y: 30}, {x: 90, y: 220},
+//			{x: 30, y: 20}, {x: 80, y: 70}, {x: 50, y: 50}];
+		static Point[7] pts2;
+		pts2[0] = Point(17, 100);
+		pts2[1] = Point(80, 150);
+		pts2[2] = Point(160, 30);
+		pts2[3] = Point(90, 220);
+		pts2[4] = Point(30,  20);
+		pts2[5] = Point(80,  70);
+		pts2[6] = Point(50,  50);
+
 		scope Pen p4 = new Pen(Color(0, 0, 0xFF), 1, PenStyle.DASH);
 		ea.graphics.drawBeziers(p4, pts2);
 		

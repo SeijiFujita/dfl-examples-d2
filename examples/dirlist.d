@@ -1,5 +1,5 @@
-private import dfl.all;
 
+private import dfl.all;
 import std.file;
 
 
@@ -15,7 +15,6 @@ class DirList: dfl.form.Form
 	this()
 	{
 		initializeDirList();
-		
 		dirName.click ~= &dirName_click;
 	}
 	
@@ -39,6 +38,7 @@ class DirList: dfl.form.Form
 			}
 			s = fbd.selectedPath;
 			dirView.nodes.clear();
+/++
 			int i = 0;
 			listdir(s,
 				(string fn)
@@ -51,6 +51,10 @@ class DirList: dfl.form.Form
 					dirView.nodes.add(fn);
 					return true; // continue
 				});
+++/
+			foreach (string name; dirEntries(s, SpanMode.breadth))
+//				if (name.isDir)
+					dirView.nodes.add(name);
 			dirName.text = s; // Note: the label might cut off some of the path.
 		}
 	}

@@ -8,7 +8,10 @@
 // Note: DFL code should not be written this way. This is only a test. See other examples for better guidelines.
 
 
-import std.date, std.stdio;
+//import std.date, std.stdio;
+
+import std.datetime;
+import std.stdio;
 
 import dfl.all;
 
@@ -73,7 +76,9 @@ int main()
 	{
 		printf("No text on the clipboard.\n");
 	}
-	Clipboard.setDataObject(Data(cast(ubyte[])("Now: " ~ std.date.toString(getUTCtime()))));
+//@@	Clipboard.setDataObject(Data(cast(ubyte[])("Now: " ~ std.date.toString(getUTCtime()))));
+	Clipboard.setDataObject(Data(cast(ubyte[])("Now: " ~ Clock.currTime().toSimpleString())));
+
 	dobj = Clipboard.getDataObject();
 	assert(dobj !is null);
 	if(dobj.getDataPresent(DataFormats.text))
@@ -151,6 +156,10 @@ int main()
 					
 					case BorderStyle.FIXED_SINGLE:
 						ctrl.borderStyle = BorderStyle.NONE;
+						break;
+				// add default
+					default:
+						assert(0);
 						break;
 				}
 			};

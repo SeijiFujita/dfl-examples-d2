@@ -96,7 +96,8 @@ class DirListViewForm: dfl.form.Form
 				}
 				else
 				{
-					ext = getExt(name);
+//					ext = getExt(name);
+					ext = name [ lastIndexOf(name, ".") + 1 .. name.length];
 				}
 				switch(ext)
 				{
@@ -130,12 +131,16 @@ class DirListViewForm: dfl.form.Form
 		}
 		else
 		{
+/++			
 			listdir(getcwd(),
 				(DirEntry* de)
 				{
 					addFile(getBaseName(de.name), de.name, de.isdir() != 0);
 					return true; // Continue.
 				});
+++/
+			foreach (DirEntry e; dirEntries(getcwd(), SpanMode.breadth))
+				addFile(baseName(e.name), e.name, e.isDir() != 0);
 		}
 	}
 	
