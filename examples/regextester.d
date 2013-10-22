@@ -5,10 +5,11 @@
 */
 
 private import dfl.all;
-// import std.regexp;
+//import std.regexp;
 import std.regex;
 import std.string;
-import std.math;
+//import std.math;
+import std.format;
 
 class RegexTester: dfl.form.Form
 {
@@ -33,7 +34,7 @@ class RegexTester: dfl.form.Form
 	dfl.button.CheckBox cbGM;
 	dfl.button.Button button1;
 	//~Entice Designer variables end here.
-	std.regexp.RegExp mregexp;
+//	std.regexp.RegExp mregexp;
 
 	this()
 	{
@@ -47,7 +48,7 @@ class RegexTester: dfl.form.Form
 		// Do not manually edit this block of code.
 		//~Entice Designer 0.8.1 code begins here.
 		//~DFL Form
-		text = "D Language Phobos.std.Regex Tester";
+		text = "D Language Phobos.std.regex Tester";
 		clientSize = dfl.drawing.Size(632, 462);
 		//~DFL dfl.textbox.TextBox=txRegex
 		txRegex = new dfl.textbox.TextBox();
@@ -128,11 +129,11 @@ class RegexTester: dfl.form.Form
 		btMatches.bounds = dfl.drawing.Rect(272, 424, 88, 24);
 		btMatches.parent = this;
 		//~DFL dfl.button.Button=btGroup
-		btGroup = new dfl.button.Button();
-		btGroup.name = "btGroup";
-		btGroup.text = "Groups";
-		btGroup.bounds = dfl.drawing.Rect(360, 424, 88, 24);
-		btGroup.parent = this;
+//		btGroup = new dfl.button.Button();
+//		btGroup.name = "btGroup";
+//		btGroup.text = "Groups";
+//		btGroup.bounds = dfl.drawing.Rect(360, 424, 88, 24);
+//		btGroup.parent = this;
 		//~DFL dfl.button.CheckBox=cbIC
 		cbIC = new dfl.button.CheckBox();
 		cbIC.name = "cbIC";
@@ -178,23 +179,39 @@ class RegexTester: dfl.form.Form
 
 	private void btisMatch_click(Object sender, EventArgs ea)
 	{
+/++
 		string sur = strip(txRegex.text);
-		RegExp r =  new RegExp(sur,regAttribute());
+//		RegExp r =  new RegExp(sur,regAttribute());
+
 		if( cast(bool)r.test(strip(txSource.text)))
 			txMatches.text="Match!!";
 		else
 			txMatches.text="NOT FOUND!!";
+++/
+		string sur = strip(txRegex.text);
+		auto m = match(txSource.text, regex(sur, regAttribute()));
+		auto c = m.captures;
+		if (c.empty())
+			txMatches.text="NOT FOUND!!";
+		else
+			txMatches.text="Match!!";
 	}
 
 	private void btReplace_click(Object sender, EventArgs ea)
 	{
+/++
     string sur = strip(txRegex.text);
 		RegExp r =  new RegExp(sur,regAttribute());
 		this.txMatches.text =r.replace(txSource.text,txReplace.text);
+++/
+	    string sur = strip(txRegex.text);
+		auto r = regex(sur, regAttribute());
+		this.txMatches.text = replace(txSource.text, r, txReplace.text);
 	}
 
 	private void btSplit_click(Object sender, EventArgs ea)
 	{
+/++
 		string sur = strip(txRegex.text);
 		RegExp r =  new RegExp(sur,regAttribute());
 		string[] s = r.split(txSource.text);
@@ -205,16 +222,20 @@ class RegexTester: dfl.form.Form
 			a ~= std.string.newline ;
 		}
 		this.txMatches.text = cast(string)a;
+++/
+		string sur = strip(txRegex.text);
+		string[] s = split(txSource.text, regex(sur, regAttribute()));
+		char[] a = null;
+		foreach(v ; s) {
+			a ~= v;
+			a ~= "\r\n";
+		}
+		this.txMatches.text = cast(string)a;
 	}
 
-	private void btGroups_click(Object sender, EventArgs ea)
-	{
-		//char[] sub(char[] string, char[] pattern, char[] format, char[] attributes = null);
-		txMatches.text = sub(txSource.text ,txRegex.text ,txReplace.text ,regAttribute() );
-
-	}
 	private void btMatches_click(Object sender, EventArgs ea)
 	{
+/++		
 		string sur = strip(txRegex.text);
 		RegExp r =  new RegExp(sur,regAttribute());
 		string[] s = r.match(txSource.text);
@@ -225,14 +246,37 @@ class RegexTester: dfl.form.Form
 			a ~= std.string.newline ;
 		}
 		this.txMatches.text = cast(string)a;
+++/
+		string sur = strip(txRegex.text);
+		auto m = match(txSource.text, regex(sur, regAttribute()));
+		auto c = m.captures;
+		string s;
+		s = format(".pre='%s'\r\n", c.pre);
+		s ~= format(".post='%s'\r\n", c.post);
+		s ~= format(".hit='%s'\r\n", c.hit);
+		s ~= format(".front='%s'\r\n", c.front);
+		s ~= format(".back='%s'\r\n", c.back);
+		s ~= format(".empty='%s'\r\n", c.empty ? "ture" : "false");
+		s ~= cast(string) format(".length=%d", c.length);
+		txMatches.text = s;
+	}
+
+	private void btGroups_click(Object sender, EventArgs ea)
+	{
+		//char[] sub(char[] string, char[] pattern, char[] format, char[] attributes = null);
+//		txMatches.text = sub(txSource.text ,txRegex.text ,txReplace.text ,regAttribute() );
 	}
 
 	private void btClear_click(Object sender, EventArgs ea)
 	{
 		txRegex.text ="";
+/++
 		txSource.text = "";
 		txReplace.text = "\u4e00";
 		txMatches.text = "\u9fa5";
+++/
+		txReplace.text = "";
+		txMatches.text = "";
 	}
 	private void button1_click(Object sender, EventArgs ea)
 	{
