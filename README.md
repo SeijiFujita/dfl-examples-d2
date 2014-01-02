@@ -1,9 +1,9 @@
 
-I am checking old DFL-example by D2.  
-This example code is public domain.  
+** dfl examples
 
+# This dfl example is public domain.  
 
-Using:  
+# Using:  
  dfl https://github.com/Rayerd/dfl  
  DMD32 D Compiler v2.063.2  
 
