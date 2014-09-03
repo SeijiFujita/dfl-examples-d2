@@ -305,11 +305,15 @@ class GameForm: Form
 							status.text = "Tie game!";
 							disableGame();
 							break;
+						
+						default:
+							break;
 					}
 				}
 				break;
 			
-			default: ;
+			default:
+				break;
 		}
 	}
 }

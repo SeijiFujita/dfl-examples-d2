@@ -25,8 +25,8 @@ RegistryKey rkey;
 
 class DNoteForm: Form
 {
-	const string UNTITLED = "Untitled";
-	const string FILE_DIALOG_FILTER = "Text Documents (*.txt)|*.txt|D Source Files (*.d)|*.d|All Files|*.*";
+	enum string UNTITLED = "Untitled";
+	enum string FILE_DIALOG_FILTER = "Text Documents (*.txt)|*.txt|D Source Files (*.d)|*.d|All Files|*.*";
 	
 	DNoteTextBox pad; // The note pad.
 	string fileName;

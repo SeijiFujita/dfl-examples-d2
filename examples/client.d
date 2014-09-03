@@ -20,9 +20,9 @@ string nuser, npass;
 
 class ClientForm: Form
 {
-	const int PADDING = 8;
-	const int TEXTBOX_HEIGHT = 20;
-	const int LABEL_HEIGHT = 16;
+	enum int PADDING = 8;
+	enum int TEXTBOX_HEIGHT = 20;
+	enum int LABEL_HEIGHT = 16;
 	
 	ListBox groups;
 	ListBox msgs;

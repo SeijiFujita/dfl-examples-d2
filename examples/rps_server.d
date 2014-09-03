@@ -5,8 +5,9 @@
 // To complie:
 // 	dmd rps_server ws2_32.lib
 
-
-private import std.socket, std.conv, std.c.stdio;
+import std.stdio;
+import std.socket;
+import std.conv;
 
 
 // args[1] = optional listen port
@@ -33,9 +34,9 @@ int main(string[] args)
 		
 		// Wait for clients.
 		clients[0] = server.accept();
-		printf("[%.*s] Got client 1, waiting for client 2...\n", clients[0].remoteAddress().toString());
+		writeln("[", clients[0].remoteAddress().toString(), "] Got client 1, waiting for client 2...");
 		clients[1] = server.accept();
-		printf("[%.*s] Got client 2, starting game...\n", clients[1].remoteAddress().toString());
+		writeln("[", clients[1].remoteAddress().toString(), "] Got client 2, starting game...");
 		
 		for(;;)
 		{
@@ -144,11 +145,13 @@ int main(string[] args)
 							clients[1].send("t");
 							break;
 						
-						default: ;
+						default: 
+							break;
 					}
 					break;
 				
-				default: ;
+				default: 
+					break;
 			}
 			
 			// Play another game.
